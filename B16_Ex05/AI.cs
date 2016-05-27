@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace B16_Ex02
+namespace B16_Ex05
 {
     internal class AI
     {

@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace B16_Ex02
+namespace B16_Ex05
 {
+    using B16_Ex05.Forms;
+
     internal class FourInARowGame
     {
         public const int k_MinDimension = 4;
@@ -17,44 +19,39 @@ namespace B16_Ex02
 
         public FourInARowGame()
         {
-            InitializeBoard();
-            InitializeGameMode();
+            MainMenuForm mainMenuForm = new MainMenuForm(k_MinDimension, k_MaxDimension);
+            mainMenuForm.OnStartPressed += mainMenuForm_OnStartPressed;
+            mainMenuForm.ShowDialog();
+        }
+
+        void mainMenuForm_OnStartPressed(MainMenuGameSettingsArgs args)
+        {
+            Console.WriteLine(args);
+            // from here we should initialize the game
+            InitializeBoard(args.Columns,args.Rows);
+            InitializeGameMode(args.IsPlayerHuman, args.Player1Name, args.Player2Name);
             StartGame();
+
         }
 
         /// <summary>
         /// Get Board dimensions from user and initialize it
         /// </summary>
-        private void InitializeBoard()
+        private void InitializeBoard(int i_Columns, int i_Rows) 
         {
-            int columns;
-            int rows;
-
-            GameView.GetBoardDimensions(out columns, out rows);
-
             // initialize board
-            m_board = new Board(columns, rows);
+            m_board = new Board(i_Columns, i_Rows);
         }
 
         /// <summary>
         /// Get the game mode from user and initialize players
         /// </summary>
-        private void InitializeGameMode()
+        private void InitializeGameMode(bool i_IsPlayer2Human, string i_Player1Name, string i_Player2Name)
         {
-            bool playerHumanity = true;
+            bool isPlayer1Human = true;
             m_players = new List<Player>();
-            m_players.Add(new Player(GameTexts.k_Player1Name, playerHumanity, Board.eSlotState.Player1));
-            m_gameMode = GameView.GetGameMode();
-
-            if (m_gameMode == eGameMode.TwoPlayers)
-            {
-                m_players.Add(new Player(GameTexts.k_Player2Name, playerHumanity, Board.eSlotState.Player2));
-            }
-            else
-            {
-                playerHumanity = false;
-                m_players.Add(new Player(GameTexts.k_ComputerName, playerHumanity, Board.eSlotState.Player2));
-            }
+            m_players.Add(new Player(i_Player1Name, isPlayer1Human, Board.eSlotState.Player1));
+            m_players.Add(new Player(i_Player2Name, i_IsPlayer2Human, Board.eSlotState.Player2));
         }
 
         /// <summary>
@@ -62,6 +59,7 @@ namespace B16_Ex02
         /// </summary>
         private void StartGame()
         {
+            //Open board view and start game logic
             TakeTurn();
         }
 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace B16_Ex02
+namespace B16_Ex05
 {
     internal class BoardView
     {
@@ -27,7 +27,7 @@ namespace B16_Ex02
             int seperatorRowLength = (numOfColumns * (k_SlotTemplate.Length - 1)) + 1;
             separatorRow.Append(k_TableVerticalSeperatorChar, seperatorRowLength);
 
-            Ex02.ConsoleUtils.Screen.Clear();
+            //// Ex02.ConsoleUtils.Screen.Clear();
             PrintHeaderRow(numOfColumns);
 
             for (int row = 0; row < numOfRows; row++)

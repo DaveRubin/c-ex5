@@ -39,16 +39,23 @@
     <Compile Include="Board.cs" />
     <Compile Include="BoardAnalyzer.cs" />
     <Compile Include="BoardView.cs" />
-    <Compile Include="ComputerPlayer.cs" />
+    <Compile Include="Forms\MainMenuForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MainMenuGameSettingsArgs.cs" />
     <Compile Include="FourInARowGame.cs" />
     <Compile Include="GameColors.cs" />
     <Compile Include="GameKeys.cs" />
     <Compile Include="GameTexts.cs" />
     <Compile Include="GameView.cs" />
-    <Compile Include="HumanPlayer.cs" />
     <Compile Include="InputUtils.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

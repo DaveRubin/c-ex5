@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace B16_Ex02
+namespace B16_Ex05
 {
     internal class GameView
     {
@@ -13,7 +13,7 @@ namespace B16_Ex02
         /// <param name="i_rows"></param>
         public static void GetBoardDimensions(out int i_columns, out int i_rows)
         {
-            Ex02.ConsoleUtils.Screen.Clear();
+            // Ex02.ConsoleUtils.Screen.Clear();
             Console.ForegroundColor = GameColors.k_MenuHeadersColor;
 
             int gameMinDimension = FourInARowGame.k_MinDimension;
@@ -39,7 +39,7 @@ namespace B16_Ex02
         /// <returns></returns>
         public static FourInARowGame.eGameMode GetGameMode()
         {
-            Ex02.ConsoleUtils.Screen.Clear();
+            // Ex02.ConsoleUtils.Screen.Clear();
             Console.ForegroundColor = GameColors.k_MenuHeadersColor;
             FourInARowGame.eGameMode selectedGameMode = FourInARowGame.eGameMode.ManVsMachine;
             string descriptionText = string.Format(
@@ -66,7 +66,7 @@ namespace B16_Ex02
         public static void ShowWinScreen(Player i_winner)
         {
             Console.ForegroundColor = GameColors.k_WinColor;
-            Ex02.ConsoleUtils.Screen.Clear();
+            // Ex02.ConsoleUtils.Screen.Clear();
 
             Console.WriteLine(string.Format(GameTexts.k_WinScreenTemplate, i_winner.r_name));
             Console.ReadLine();
@@ -79,7 +79,7 @@ namespace B16_Ex02
         public static void ShowTieScreen()
         {
             Console.ForegroundColor = GameColors.k_TieColor;
-            Ex02.ConsoleUtils.Screen.Clear();
+            // Ex02.ConsoleUtils.Screen.Clear();
 
             Console.WriteLine(GameTexts.k_TieScreen);
             Console.ReadLine();
@@ -93,7 +93,7 @@ namespace B16_Ex02
         /// <returns></returns>
         public static bool RestartGameMessage(List<Player> i_playersList)
         {
-            Ex02.ConsoleUtils.Screen.Clear();
+            // Ex02.ConsoleUtils.Screen.Clear();
             Console.WriteLine(
                 string.Format(
                     GameTexts.k_RestartGameScreenTemplate,
@@ -109,7 +109,7 @@ namespace B16_Ex02
 
         public static void ShowGoodByeScreen()
         {
-            Ex02.ConsoleUtils.Screen.Clear();
+            // Ex02.ConsoleUtils.Screen.Clear();
             Console.WriteLine(GameTexts.k_GoodByeMessage);
             Console.ReadLine();
         }

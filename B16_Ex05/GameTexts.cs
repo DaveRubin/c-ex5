@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace B16_Ex02
+namespace B16_Ex05
 {
     /// <summary>
     /// Container class for all messages and string templates used in game
