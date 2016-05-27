@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B63E052D-4DD3-4A48-BD58-C9CAEE61F420}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{85C31AEF-9E0C-4B17-85F5-6742DC9EDD06}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>B16_Ex05_DudiRubin_039532908_AmitaiHandler_039213228</RootNamespace>
-    <AssemblyName>B16 Ex05 DudiRubin 039532908 AmitaiHandler 039213228</AssemblyName>
+    <RootNamespace>B16_Ex05</RootNamespace>
+    <AssemblyName>B16_Ex05</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,6 +31,25 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="AI.cs" />
+    <Compile Include="Board.cs" />
+    <Compile Include="BoardAnalyzer.cs" />
+    <Compile Include="BoardView.cs" />
+    <Compile Include="ComputerPlayer.cs" />
+    <Compile Include="FourInARowGame.cs" />
+    <Compile Include="GameColors.cs" />
+    <Compile Include="GameKeys.cs" />
+    <Compile Include="GameTexts.cs" />
+    <Compile Include="GameView.cs" />
+    <Compile Include="HumanPlayer.cs" />
+    <Compile Include="InputUtils.cs" />
+    <Compile Include="Player.cs" />
+    <Compile Include="Program.cs" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
