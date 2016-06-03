@@ -12,6 +12,7 @@ namespace B16_Ex05
         public const int k_MaxDimension = 8;
 
         private Board m_board;
+        private BoardViewForm m_BoardViewForm;
         private List<Player> m_players;
         private int m_currentPlayerIndex;
         private eGameMode m_gameMode;
@@ -30,8 +31,13 @@ namespace B16_Ex05
             // from here we should initialize the game
             InitializeBoard(args.Columns,args.Rows);
             InitializeGameMode(args.IsPlayerHuman, args.Player1Name, args.Player2Name);
+            InitializeBoardForm(args);
             StartGame();
+        }
 
+        void boardViewForm_OnColumnSelectPressed(int i_ColumnSelected)
+        {
+            
         }
 
         /// <summary>
@@ -41,6 +47,15 @@ namespace B16_Ex05
         {
             // initialize board
             m_board = new Board(i_Columns, i_Rows);
+        }
+
+        /// <summary>
+        /// Create the Board View Form from setting argument 
+        /// <param name="MainMenuGameSettingsArgs args"></param>
+        /// </summary>
+        private void InitializeBoardForm(MainMenuGameSettingsArgs args)
+        {
+            m_BoardViewForm = new BoardViewForm(args);
         }
 
         /// <summary>
@@ -60,6 +75,7 @@ namespace B16_Ex05
         private void StartGame()
         {
             //Open board view and start game logic
+            m_BoardViewForm.ShowDialog();
             TakeTurn();
         }
 
@@ -68,7 +84,7 @@ namespace B16_Ex05
         /// </summary>
         private void TakeTurn()
         {
-            GameView.ShowTurnScreen(m_board, m_players[m_currentPlayerIndex].r_name);
+            //GameView.ShowTurnScreen(m_board, m_players[m_currentPlayerIndex].r_name);
             PlayerMove();
             
             if (m_isQuitSelected)

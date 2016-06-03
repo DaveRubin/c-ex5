@@ -39,6 +39,9 @@
     <Compile Include="Board.cs" />
     <Compile Include="BoardAnalyzer.cs" />
     <Compile Include="BoardView.cs" />
+    <Compile Include="Forms\BoardViewForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\MainMenuForm.cs">
       <SubType>Form</SubType>
     </Compile>
