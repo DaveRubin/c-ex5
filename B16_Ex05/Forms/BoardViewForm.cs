@@ -57,7 +57,7 @@ namespace B16_Ex05.Forms
                     Width = k_ColumnSelectButtonWidth,
                     Height = k_ColumnSelectButtonHeight,
                     Location = new Point(
-                        i * k_ColumnSelectButtonWidth + k_Padding,
+                        i * k_ColumnSelectButtonWidth + (i + 2) * k_Padding,
                         k_Padding),
                     Text = (i + 1).ToString()
                 };
@@ -73,10 +73,11 @@ namespace B16_Ex05.Forms
                 {
                     m_ButtonMatrix[row, col] = new Button()
                     {
-                        Width = Height = k_GameButtonDimension,
+                        Width = k_GameButtonDimension,
+                        Height = k_GameButtonDimension,
                         Location = new Point(
-                            row * k_GameButtonDimension + k_Padding,
-                            col * k_GameButtonDimension + k_Padding + 2 * k_Padding + k_ColumnSelectButtonHeight),
+                            row * k_GameButtonDimension + (row + 2) * k_Padding,
+                            m_ColumnSelectionButtonsArray[col].Bottom + col * k_GameButtonDimension + (col + 1) * k_Padding),
                         Text = k_EmptySymbol.ToString()
                     };
                     m_ButtonMatrix[row, col].Tag = tagNum++;
@@ -89,12 +90,23 @@ namespace B16_Ex05.Forms
             Player1Label.Text = i_Player1Name + ": ";
             Player2Label.Text = i_Player2Name + ": ";
             Player1Label.Top = m_ButtonMatrix[m_NumOfRows - 1, 0].Bottom + k_Padding;
-            Player1Label.Left = m_ButtonMatrix[m_NumOfRows - 1, 0].Left;
+            Player1Label.Left = m_ButtonMatrix[0, 0].Left;
             Player2Label.Top = Player1Label.Top;
             Player2Label.Left = Player1Label.Right + 3 * k_Padding;
             Controls.Add(Player1Label);
             Controls.Add(Player2Label);
 
+        }
+
+        internal void EmptyBoardView()
+        {
+            for (int row = 0; row < m_NumOfRows; row++)
+            {
+                for (int col = 0; col < m_NumOfColumns; col++)
+                {
+                    m_ButtonMatrix[row, col].Text = k_EmptySymbol.ToString();
+                }
+            }
         }
 
         /// <summary>
