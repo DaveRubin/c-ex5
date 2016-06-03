@@ -42,6 +42,9 @@
     <Compile Include="Forms\MainMenuForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\MainMenuFormDesign.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\MainMenuGameSettingsArgs.cs" />
     <Compile Include="FourInARowGame.cs" />
     <Compile Include="GameColors.cs" />
@@ -56,6 +59,11 @@
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Forms\MainMenuFormDesign.resx">
+      <DependentUpon>MainMenuFormDesign.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
