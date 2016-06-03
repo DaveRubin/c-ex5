@@ -17,6 +17,7 @@ namespace B16_Ex05
         private int m_currentPlayerIndex;
         private eGameMode m_gameMode;
         private bool m_isQuitSelected = false;
+        private int m_PlayerSelectedColumn = -1;
 
         public FourInARowGame()
         {
@@ -35,11 +36,6 @@ namespace B16_Ex05
             StartGame();
         }
 
-        void boardViewForm_OnColumnSelectPressed(int i_ColumnSelected)
-        {
-            
-        }
-
         /// <summary>
         /// Get Board dimensions from user and initialize it
         /// </summary>
@@ -56,6 +52,12 @@ namespace B16_Ex05
         private void InitializeBoardForm(MainMenuGameSettingsArgs args)
         {
             m_BoardViewForm = new BoardViewForm(args);
+            m_BoardViewForm.OnColumnSelectPressed += m_BoardViewForm_OnColumnSelectPressed;
+        }
+
+        void m_BoardViewForm_OnColumnSelectPressed(int col)
+        {
+            m_PlayerSelectedColumn = col;
         }
 
         /// <summary>
@@ -117,6 +119,7 @@ namespace B16_Ex05
         private void PlayAgain()
         {
             m_board.EmptyBoard();
+            m_BoardViewForm.EmptyBoardView();
             m_currentPlayerIndex = 0;
             TakeTurn();
         }
@@ -175,11 +178,8 @@ namespace B16_Ex05
             if (m_players[m_currentPlayerIndex].IsHuman)
             {
                 /// get input from human player
-                selectedColumn = InputUtils.GetBoundedIntOrQuitFromConsole(
-                    1,
-                    m_board.r_numOfColumns,
-                    GameKeys.k_QuitGameKey,
-                    ref m_isQuitSelected) - 1;
+                selectedColumn = m_PlayerSelectedColumn;
+                m_PlayerSelectedColumn = -1;
             }
             else
             {
@@ -192,15 +192,11 @@ namespace B16_Ex05
             Board.eSlotState playerPieceType = (m_currentPlayerIndex == 0)
                                                    ? Board.eSlotState.Player1
                                                    : Board.eSlotState.Player2;
-            while (!m_isQuitSelected && !m_board.AddPieceToColumn(selectedColumn, playerPieceType))
+            while (!m_board.AddPieceToColumn(selectedColumn, playerPieceType))
             {
-                Console.WriteLine(string.Format(GameTexts.k_ColumnIsntFreeMessageTemplate, selectedColumn));
-                selectedColumn = InputUtils.GetBoundedIntOrQuitFromConsole(
-                    1,
-                    m_board.r_numOfColumns,
-                    GameKeys.k_QuitGameKey,
-                    ref m_isQuitSelected) - 1;
+                selectedColumn = m_PlayerSelectedColumn;
             }
+            m_PlayerSelectedColumn = -1;
         }
 
         public enum eGameMode
