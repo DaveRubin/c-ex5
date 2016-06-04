@@ -10,18 +10,18 @@ namespace B16_Ex05.Forms
 
     internal class BoardViewForm : Form
     {
-        private const string k_WindowTitle = "4 IN A ROW!";
-        private const int k_ColumnSelectButtonWidth = 50;
-        private const int k_ColumnSelectButtonHeight = 40;
-        private const int k_GameButtonDimension = 50;
-        private const int k_Padding = 20;
-        private const char k_P1Symbol = 'O';
-        private const char k_P2Symbol = 'X';
-        private const char k_EmptySymbol = ' ';
-        private int m_NumOfColumns;
-        private int m_NumOfRows;
-        private Button[,] m_ButtonMatrix;
-        private Button[] m_ColumnSelectionButtonsArray;
+        internal const string k_WindowTitle = "4 IN A ROW!";
+        internal const int k_ColumnSelectButtonWidth = 50;
+        internal const int k_ColumnSelectButtonHeight = 40;
+        internal const int k_GameButtonDimension = 50;
+        internal const int k_Padding = 20;
+        internal const char k_P1Symbol = 'O';
+        internal const char k_P2Symbol = 'X';
+        internal const char k_EmptySymbol = ' ';
+        internal int m_NumOfColumns;
+        internal int m_NumOfRows;
+        internal Button[,] m_ButtonMatrix;
+        internal Button[] m_ColumnSelectionButtonsArray;
         public delegate void ColumnSelectEventHandler (int col);
         public event ColumnSelectEventHandler OnColumnSelectPressed;
 
@@ -108,6 +108,20 @@ namespace B16_Ex05.Forms
                 }
             }
         }
+        
+        internal void SetToken(int col, int row, Board.eSlotState i_PieceType)
+        {
+            char symbolToSet = ' ';
+            if (i_PieceType == Board.eSlotState.Player1)
+            {
+                symbolToSet = k_P1Symbol;
+            }
+            else if (i_PieceType == Board.eSlotState.Player2)
+            {
+                symbolToSet = k_P2Symbol;
+            }
+            m_ButtonMatrix[col, row].Text = symbolToSet.ToString();
+        }
 
         /// <summary>
         /// When column selection clicked 
@@ -118,7 +132,7 @@ namespace B16_Ex05.Forms
         void ColumnSelection_Clicked(object sender, System.EventArgs e)
         {
             int columnSelected = Int16.Parse((sender as Button).Text);
-            OnColumnSelectPressed(columnSelected);
+            OnColumnSelectPressed(--columnSelected);
         }
     }
 }
