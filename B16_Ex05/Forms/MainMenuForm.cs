@@ -10,10 +10,6 @@ namespace B16_Ex05.Forms
         private readonly int r_minSizeVal;
         private readonly int r_maxSizeVal;
 
-        public delegate void GameSettingsEventHandler(MainMenuGameSettingsArgs args);
-
-        public event GameSettingsEventHandler OnStartPressed;
-
         public MainMenuGameSettingsArgs GameSettings
         {
             get
