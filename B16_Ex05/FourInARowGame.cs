@@ -117,8 +117,7 @@ namespace B16_Ex05
 
         private void ShowGameTieScreen()
         {
-            GameView.ShowTieScreen();
-            ShowRestartScreen();
+            ShowEndingMessageBox(GameTexts.k_TieMainText, GameTexts.k_TieWindowTitle);
         }
 
         private void PlayAgain()
@@ -135,33 +134,21 @@ namespace B16_Ex05
         {
             Player winner = m_players[m_currentPlayerIndex];
             winner.Score++;
-            GameView.ShowWinScreen(winner);
-            ShowRestartScreen();
+            string winText = string.Format(GameTexts.k_WinScreenTemplate, winner.r_name);
+            ShowEndingMessageBox(winText, GameTexts.k_WinWindowTitle);
         }
 
-        /// <summary>
-        /// Show PlayAgain screen and wait for user input
-        /// exit game or continue to another accordingly
-        /// </summary>
-        private void ShowRestartScreen()
+        private void ShowEndingMessageBox(string i_MainBoxText, string i_WindowTitle)
         {
-            bool restartGameUserSelection = GameView.RestartGameMessage(m_players);
-            if (restartGameUserSelection)
+            DialogResult result = MessageBox.Show(
+                i_MainBoxText,
+                i_WindowTitle,
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
             {
                 PlayAgain();
             }
-            else
-            {
-                ExitGame();
-            }
-        }
-
-        /// <summary>
-        /// When exiting game show good bye screeen
-        /// </summary>
-        private void ExitGame()
-        {
-            GameView.ShowGoodByeScreen();
         }
 
         /// <summary>

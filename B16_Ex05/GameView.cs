@@ -81,7 +81,7 @@ namespace B16_Ex05
             Console.ForegroundColor = GameColors.k_TieColor;
             // Ex02.ConsoleUtils.Screen.Clear();
 
-            Console.WriteLine(GameTexts.k_TieScreen);
+            Console.WriteLine(GameTexts.k_TieMainText);
             Console.ReadLine();
             Console.ForegroundColor = GameColors.k_BaseColor;
         }

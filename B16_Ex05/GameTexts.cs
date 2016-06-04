@@ -38,25 +38,15 @@ namespace B16_Ex05
         public const string k_DimensionsDescriptionTemplate = "Dimensions must be between {0}X{0} and {1}X{1} ";
         public const string k_GameModeTitle = "Game mode selection";
         public const string k_GameModeDescriptionTemplate = "Enter '{0}' for two players or '{1}' for human vs machine";
+        public const string k_WinWindowTitle = "A Win!";
         public const string k_WinScreenTemplate = 
-@"=========================================================
+@"{0} wins !
+Another round?";
 
-            Great success!!!
-             {0} wins !
-
-
-        Press enter to continue
-=========================================================";
-
-        public const string k_TieScreen =
-@"=========================================================
-
-            It's a tie!!!!
-           everybody loses!
-
-
-        Press enter to continue
-=========================================================";
+        public const string k_TieWindowTitle = "A Tie!";
+        public const string k_TieMainText =
+@"It's a tie!!!!
+Another round?";
 
         public const string k_RestartGameScreenTemplate =
 @"=========================================================
