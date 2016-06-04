@@ -4,6 +4,8 @@ using System.Text;
 
 namespace B16_Ex05
 {
+    using System.Windows.Forms;
+
     using B16_Ex05.Forms;
 
     internal class FourInARowGame
@@ -22,17 +24,20 @@ namespace B16_Ex05
         public FourInARowGame()
         {
             MainMenuForm mainMenuForm = new MainMenuForm(k_MinDimension, k_MaxDimension);
-            mainMenuForm.OnStartPressed += mainMenuForm_OnStartPressed;
             mainMenuForm.ShowDialog();
+            if (mainMenuForm.DialogResult == DialogResult.OK)
+            {
+                OnStart(mainMenuForm.GameSettings);
+            }
         }
 
-        void mainMenuForm_OnStartPressed(MainMenuGameSettingsArgs args)
+        void OnStart(MainMenuGameSettingsArgs i_GameSettings)
         {
             // Console.WriteLine(args);
             // from here we should initialize the game
-            InitializeBoardForm(args);
-            InitializeBoard(args.Columns, args.Rows, m_BoardViewForm);
-            InitializeGameMode(args.IsPlayerHuman, args.Player1Name, args.Player2Name);
+            InitializeBoardForm(i_GameSettings);
+            InitializeBoard(i_GameSettings.Columns, i_GameSettings.Rows, m_BoardViewForm);
+            InitializeGameMode(i_GameSettings.IsPlayerHuman, i_GameSettings.Player1Name, i_GameSettings.Player2Name);
             
             StartGame();
         }
