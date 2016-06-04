@@ -18,8 +18,6 @@ namespace B16_Ex05
         private List<Player> m_players;
         private int m_currentPlayerIndex;
         private eGameMode m_gameMode;
-        private bool m_isQuitSelected = false;
-        private int m_PlayerSelectedColumn = -1;
 
         public FourInARowGame()
         {
@@ -63,7 +61,6 @@ namespace B16_Ex05
 
         void m_BoardViewForm_OnColumnSelectPressed(int col)
         {
-            m_PlayerSelectedColumn = col;
             TakeTurn(col);
         }
 
@@ -110,7 +107,8 @@ namespace B16_Ex05
                 m_currentPlayerIndex = (m_currentPlayerIndex + 1) % 2;
                 if (!m_players[m_currentPlayerIndex].IsHuman)
                 {
-                    PlayerMove(0);
+                    int selectedColumn = ComputerColumnSelection();
+                    PlayerMove(selectedColumn);
                 }
             }
         }
@@ -134,6 +132,7 @@ namespace B16_Ex05
         {
             Player winner = m_players[m_currentPlayerIndex];
             winner.Score++;
+            m_BoardViewForm.UpdatePlayersScore(m_players[0].Score, m_players[1].Score);
             string winText = string.Format(GameTexts.k_WinScreenTemplate, winner.r_name);
             ShowEndingMessageBox(winText, GameTexts.k_WinWindowTitle);
         }
@@ -165,24 +164,22 @@ namespace B16_Ex05
         /// </summary>
         private void PlayerMove(int i_ColumnSelected)
         {
-//            int selectedColumn = i_ColumnSelected;
-//            /// get input from AI
-//            if (!m_players[m_currentPlayerIndex].IsHuman)
-//            {
-//                /// selectedColumn = m_players[m_currentPlayerIndex].SelectColumn(ref m_board);
-//                Board.eSlotState opponentPieceType = Board.eSlotState.Player1;
-//                selectedColumn = AI.SelectMove(ref m_board, Board.eSlotState.Player2, opponentPieceType);
-//            }
-//
-//            Board.eSlotState playerPieceType = (m_currentPlayerIndex == 0)
-//                                                   ? Board.eSlotState.Player1
-//                                                   : Board.eSlotState.Player2;
-//            m_board.AddPieceToColumn(i_ColumnSelected, playerPieceType);
-//            m_BoardViewForm.SetToken(i_column, targetRow, playerPieceType);
-//            while (!m_board.AddPieceToColumn(selectedColumn, playerPieceType))
-//            {
-//                selectedColumn = m_PlayerSelectedColumn;
-//            }
+            //int selectedColumn = i_ColumnSelected;
+            //if (!m_players[m_currentPlayerIndex].IsHuman)
+            //{
+            //    selectedColumn = ComputerColumnSelection();
+            //}
+
+            Board.eSlotState playerPieceType = (m_currentPlayerIndex == 0)
+                                                   ? Board.eSlotState.Player1
+                                                   : Board.eSlotState.Player2;
+            m_board.AddPieceToColumn(i_ColumnSelected, playerPieceType);
+        }
+
+        private int ComputerColumnSelection()
+        {
+            Board.eSlotState opponentPieceType = Board.eSlotState.Player1;
+            return AI.SelectMove(ref m_board, Board.eSlotState.Player2, opponentPieceType);
         }
 
         public enum eGameMode
