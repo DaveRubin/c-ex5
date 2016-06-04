@@ -28,21 +28,22 @@ namespace B16_Ex05
 
         void mainMenuForm_OnStartPressed(MainMenuGameSettingsArgs args)
         {
-            Console.WriteLine(args);
+            // Console.WriteLine(args);
             // from here we should initialize the game
-            InitializeBoard(args.Columns,args.Rows);
-            InitializeGameMode(args.IsPlayerHuman, args.Player1Name, args.Player2Name);
             InitializeBoardForm(args);
+            InitializeBoard(args.Columns, args.Rows, m_BoardViewForm);
+            InitializeGameMode(args.IsPlayerHuman, args.Player1Name, args.Player2Name);
+            
             StartGame();
         }
 
         /// <summary>
         /// Get Board dimensions from user and initialize it
         /// </summary>
-        private void InitializeBoard(int i_Columns, int i_Rows) 
+        private void InitializeBoard(int i_Columns, int i_Rows, BoardViewForm i_BoardView) 
         {
             // initialize board
-            m_board = new Board(i_Columns, i_Rows);
+            m_board = new Board(i_Columns, i_Rows, i_BoardView);
         }
 
         /// <summary>
@@ -58,6 +59,7 @@ namespace B16_Ex05
         void m_BoardViewForm_OnColumnSelectPressed(int col)
         {
             m_PlayerSelectedColumn = col;
+            TakeTurn(col);
         }
 
         /// <summary>
@@ -78,22 +80,17 @@ namespace B16_Ex05
         {
             //Open board view and start game logic
             m_BoardViewForm.ShowDialog();
-            TakeTurn();
         }
 
         /// <summary>
         /// Game turn sequence
         /// </summary>
-        private void TakeTurn()
+        private void TakeTurn(int i_ColSelected)
         {
             //GameView.ShowTurnScreen(m_board, m_players[m_currentPlayerIndex].r_name);
-            PlayerMove();
+            PlayerMove(i_ColSelected);
             
-            if (m_isQuitSelected)
-            {
-                ExitGame();
-            }
-            else if (CheckIfWin())
+            if (CheckIfWin())
             {
                 GameView.ShowWonScreen(m_board, m_players[m_currentPlayerIndex].r_name);
                 Console.ReadLine();
@@ -106,7 +103,10 @@ namespace B16_Ex05
             else
             {
                 m_currentPlayerIndex = (m_currentPlayerIndex + 1) % 2;
-                TakeTurn();
+                if (!m_players[m_currentPlayerIndex].IsHuman)
+                {
+                    PlayerMove(0);
+                }
             }
         }
 
@@ -119,9 +119,8 @@ namespace B16_Ex05
         private void PlayAgain()
         {
             m_board.EmptyBoard();
-            m_BoardViewForm.EmptyBoardView();
             m_currentPlayerIndex = 0;
-            TakeTurn();
+            //TakeTurn();
         }
 
         /// <summary>
@@ -172,18 +171,12 @@ namespace B16_Ex05
         /// <summary>
         /// The player should select a column
         /// </summary>
-        private void PlayerMove()
+        private void PlayerMove(int i_ColumnSelected)
         {
-            int selectedColumn = 0;
-            if (m_players[m_currentPlayerIndex].IsHuman)
+            int selectedColumn = i_ColumnSelected;
+            /// get input from AI
+            if (!m_players[m_currentPlayerIndex].IsHuman)
             {
-                /// get input from human player
-                selectedColumn = m_PlayerSelectedColumn;
-                m_PlayerSelectedColumn = -1;
-            }
-            else
-            {
-                /// get input from AI
                 /// selectedColumn = m_players[m_currentPlayerIndex].SelectColumn(ref m_board);
                 Board.eSlotState opponentPieceType = Board.eSlotState.Player1;
                 selectedColumn = AI.SelectMove(ref m_board, Board.eSlotState.Player2, opponentPieceType);
@@ -192,11 +185,12 @@ namespace B16_Ex05
             Board.eSlotState playerPieceType = (m_currentPlayerIndex == 0)
                                                    ? Board.eSlotState.Player1
                                                    : Board.eSlotState.Player2;
-            while (!m_board.AddPieceToColumn(selectedColumn, playerPieceType))
-            {
-                selectedColumn = m_PlayerSelectedColumn;
-            }
-            m_PlayerSelectedColumn = -1;
+            m_board.AddPieceToColumn(i_ColumnSelected, playerPieceType);
+            m_BoardViewForm.SetToken(i_column, targetRow, playerPieceType);
+//            while (!m_board.AddPieceToColumn(selectedColumn, playerPieceType))
+//            {
+//                selectedColumn = m_PlayerSelectedColumn;
+//            }
         }
 
         public enum eGameMode
