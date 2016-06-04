@@ -107,6 +107,7 @@ namespace B16_Ex05
                 {
                     int selectedColumn = ComputerColumnSelection();
                     TakeTurn(selectedColumn);
+                    
                 }
             }
         }
@@ -172,6 +173,7 @@ namespace B16_Ex05
                                                    ? Board.eSlotState.Player1
                                                    : Board.eSlotState.Player2;
             m_board.AddPieceToColumn(i_ColumnSelected, playerPieceType);
+            m_board.BlockEnableColumnsIfNeeded();
         }
 
         private int ComputerColumnSelection()

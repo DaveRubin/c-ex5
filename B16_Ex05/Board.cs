@@ -135,6 +135,22 @@ namespace B16_Ex05
             return res;
         }
 
+        internal void BlockEnableColumnsIfNeeded()
+        {
+            for (int i = 0; i < r_numOfColumns; i++)
+            {
+                bool isColumnFree = IsColumnFree(i);
+                if (!isColumnFree)
+                {
+                    m_BoardView.m_ColumnSelectionButtonsArray[i].Enabled = false;
+                }
+                else
+                {
+                    m_BoardView.m_ColumnSelectionButtonsArray[i].Enabled = true;
+                }
+            }
+        }
+
         /// <summary>
         /// Enum representing each board slot
         /// </summary>
