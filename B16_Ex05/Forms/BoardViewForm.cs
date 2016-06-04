@@ -10,6 +10,10 @@ namespace B16_Ex05.Forms
 
     internal class BoardViewForm : Form
     {
+        internal Label Player1Label = new Label();
+        internal Label Player2Label = new Label();
+        internal Label Player1Score = new Label();
+        internal Label Player2Score = new Label();
         internal const string k_WindowTitle = "4 IN A ROW!";
         internal const int k_ColumnSelectButtonWidth = 50;
         internal const int k_ColumnSelectButtonHeight = 40;
@@ -22,8 +26,10 @@ namespace B16_Ex05.Forms
         internal int m_NumOfRows;
         internal Button[,] m_ButtonMatrix;
         internal Button[] m_ColumnSelectionButtonsArray;
+        
         public delegate void ColumnSelectEventHandler (int col);
         public event ColumnSelectEventHandler OnColumnSelectPressed;
+
 
         /// <summary>
         /// Board View Form ctor
@@ -85,17 +91,28 @@ namespace B16_Ex05.Forms
                 }
             }
             // adding the name labels
-            Label Player1Label = new Label();
-            Label Player2Label = new Label();
+            Player1Label.AutoSize = true;
+            Player2Label.AutoSize = true;
+            Player1Score.AutoSize = true;
+            Player2Score.AutoSize = true;
             Player1Label.Text = i_Player1Name + ": ";
             Player2Label.Text = i_Player2Name + ": ";
-            Player1Label.Top = m_ButtonMatrix[m_NumOfRows - 1, 0].Bottom + k_Padding;
+            Player1Score.Text = " 0";
+            Player2Score.Text = " 0";
+            //Player1Label.Top = ClientSize.Height - k_Padding - Player1Label.Height;
+            Player1Label.Anchor = (AnchorStyles.Bottom | AnchorStyles.Left);
             Player1Label.Left = m_ButtonMatrix[0, 0].Left;
-            Player2Label.Top = Player1Label.Top;
-            Player2Label.Left = Player1Label.Right + 3 * k_Padding;
+            Player1Score.Left = Player1Label.Right;
+            Player1Score.Anchor = (AnchorStyles.Bottom);
+            //Player2Label.Top = ClientSize.Height - k_Padding - Player2Label.Height;
+            Player2Label.Anchor = (AnchorStyles.Bottom);
+            Player2Label.Left = Player1Label.Right + 2 * k_Padding;
+            Player2Score.Left = Player2Label.Right;
+            Player2Score.Anchor = (AnchorStyles.Bottom);
             Controls.Add(Player1Label);
             Controls.Add(Player2Label);
-
+            Controls.Add(Player1Score);
+            Controls.Add(Player2Score);
         }
 
         internal void EmptyBoardView()
@@ -107,6 +124,20 @@ namespace B16_Ex05.Forms
                     m_ButtonMatrix[row, col].Text = k_EmptySymbol.ToString();
                 }
             }
+        }
+
+        internal void EnableAllButtons()
+        {
+            for (int i = 0; i < m_NumOfColumns; i++)
+            {
+                m_ColumnSelectionButtonsArray[i].Enabled = true;
+            }
+        }
+
+        internal void UpdatePlayersScore(int i_Player1Score, int i_Player2Score)
+        {
+            Player1Score.Text = i_Player1Score.ToString();
+            Player2Score.Text = i_Player2Score.ToString();
         }
         
         internal void SetToken(int col, int row, Board.eSlotState i_PieceType)
@@ -121,6 +152,30 @@ namespace B16_Ex05.Forms
                 symbolToSet = k_P2Symbol;
             }
             m_ButtonMatrix[col, row].Text = symbolToSet.ToString();
+        }
+
+        /// <summary>
+        /// Function to update board state  
+        /// </summary>
+        /// <param name="i_SlotMatrix"></param>
+        internal void UpdateBoard(Board.eSlotState[,] i_SlotMatrix)
+        {
+            for (int row = 0; row < m_NumOfRows; row++)
+            {
+                for (int col = 0; col < m_NumOfColumns; col++)
+                {
+                    char symbolToSet = ' ';
+                    if (i_SlotMatrix[col, row] == Board.eSlotState.Player1)
+                    {
+                        symbolToSet = k_P1Symbol;
+                    }
+                    else if (i_SlotMatrix[col, row] == Board.eSlotState.Player2)
+                    {
+                        symbolToSet = k_P2Symbol;
+                    }
+                    m_ButtonMatrix[col, row].Text = symbolToSet.ToString();
+                }
+            }
         }
 
         /// <summary>
