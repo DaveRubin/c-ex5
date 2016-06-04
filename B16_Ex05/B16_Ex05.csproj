@@ -42,15 +42,8 @@
     <Compile Include="Forms\BoardViewForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\GameEndedForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\GameEndedForm.Designer.cs">
-      <DependentUpon>GameEndedForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\MainMenuForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Forms\MainMenuForm.cs" />
+    <Compile Include="Forms\MainMenuFormDesign.cs" />
     <Compile Include="Forms\MainMenuGameSettingsArgs.cs" />
     <Compile Include="FourInARowGame.cs" />
     <Compile Include="GameColors.cs" />
@@ -69,11 +62,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Forms\GameEndedForm.resx">
-      <DependentUpon>GameEndedForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\MainMenuForm.resx">
-      <DependentUpon>MainMenuForm.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\MainMenuFormDesign.resx">
+      <DependentUpon>MainMenuFormDesign.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

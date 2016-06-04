@@ -173,20 +173,20 @@ namespace B16_Ex05
         /// </summary>
         private void PlayerMove(int i_ColumnSelected)
         {
-            int selectedColumn = i_ColumnSelected;
-            /// get input from AI
-            if (!m_players[m_currentPlayerIndex].IsHuman)
-            {
-                /// selectedColumn = m_players[m_currentPlayerIndex].SelectColumn(ref m_board);
-                Board.eSlotState opponentPieceType = Board.eSlotState.Player1;
-                selectedColumn = AI.SelectMove(ref m_board, Board.eSlotState.Player2, opponentPieceType);
-            }
-
-            Board.eSlotState playerPieceType = (m_currentPlayerIndex == 0)
-                                                   ? Board.eSlotState.Player1
-                                                   : Board.eSlotState.Player2;
-            m_board.AddPieceToColumn(i_ColumnSelected, playerPieceType);
-            m_BoardViewForm.SetToken(i_column, targetRow, playerPieceType);
+//            int selectedColumn = i_ColumnSelected;
+//            /// get input from AI
+//            if (!m_players[m_currentPlayerIndex].IsHuman)
+//            {
+//                /// selectedColumn = m_players[m_currentPlayerIndex].SelectColumn(ref m_board);
+//                Board.eSlotState opponentPieceType = Board.eSlotState.Player1;
+//                selectedColumn = AI.SelectMove(ref m_board, Board.eSlotState.Player2, opponentPieceType);
+//            }
+//
+//            Board.eSlotState playerPieceType = (m_currentPlayerIndex == 0)
+//                                                   ? Board.eSlotState.Player1
+//                                                   : Board.eSlotState.Player2;
+//            m_board.AddPieceToColumn(i_ColumnSelected, playerPieceType);
+//            m_BoardViewForm.SetToken(i_column, targetRow, playerPieceType);
 //            while (!m_board.AddPieceToColumn(selectedColumn, playerPieceType))
 //            {
 //                selectedColumn = m_PlayerSelectedColumn;
