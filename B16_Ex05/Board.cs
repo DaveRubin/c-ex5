@@ -54,6 +54,7 @@ namespace B16_Ex05
             m_slotsMatrix = new eSlotState[i_columns, i_rows];
             m_BoardView = i_BoardView;
             EmptyBoard();
+            m_BoardView.UpdateBoard(m_slotsMatrix);
         }
 
         // add piece to column , 
@@ -71,12 +72,12 @@ namespace B16_Ex05
                 }
 
                 m_slotsMatrix[i_column, targetRow] = i_pieceType;
+                m_BoardView.UpdateBoard(m_slotsMatrix);
             }
             else
             {
                 success = false;
             }
-
             return success;
         }
 
@@ -100,6 +101,7 @@ namespace B16_Ex05
            {
                m_slotsMatrix[i_column, 0] = eSlotState.Empty;
            }
+           m_BoardView.UpdateBoard(m_slotsMatrix);
         }
 
         /// <summary>
@@ -114,7 +116,8 @@ namespace B16_Ex05
                     m_slotsMatrix[i, j] = eSlotState.Empty;
                 }
             }
-            m_BoardView.EmptyBoardView();
+            m_BoardView.UpdateBoard(m_slotsMatrix);
+            m_BoardView.EnableAllButtons();
         }
 
         /// <summary>
