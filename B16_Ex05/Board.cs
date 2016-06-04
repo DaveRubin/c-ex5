@@ -1,14 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace B16_Ex05
 {
+    using B16_Ex05.Forms;
     internal class Board
     {
         public readonly int r_numOfRows;
         public readonly int r_numOfColumns;
         public eSlotState[,] m_slotsMatrix;
+        BoardViewForm m_BoardView;
+        
 
         public eSlotState[,] SlotsMatrix
         {
@@ -42,11 +47,12 @@ namespace B16_Ex05
         /// </summary>
         /// <param name="i_columns"></param>
         /// <param name="i_rows"></param>
-        public Board(int i_columns, int i_rows)
+        public Board(int i_columns, int i_rows, BoardViewForm i_BoardView)
         {
             r_numOfRows = i_rows;
             r_numOfColumns = i_columns;
             m_slotsMatrix = new eSlotState[i_columns, i_rows];
+            m_BoardView = i_BoardView;
             EmptyBoard();
         }
 
@@ -108,6 +114,7 @@ namespace B16_Ex05
                     m_slotsMatrix[i, j] = eSlotState.Empty;
                 }
             }
+            m_BoardView.EmptyBoardView();
         }
 
         /// <summary>
@@ -117,7 +124,12 @@ namespace B16_Ex05
         /// <returns></returns>
         private bool IsColumnFree(int i_column)
         {
-            return m_slotsMatrix[i_column, 0] == eSlotState.Empty;
+            bool res = m_slotsMatrix[i_column, 0] == eSlotState.Empty;
+            if (res == false)
+            {
+                m_BoardView.m_ColumnSelectionButtonsArray[i_column].Enabled = false;
+            }
+            return res;
         }
 
         /// <summary>
