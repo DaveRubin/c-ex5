@@ -94,8 +94,6 @@ namespace B16_Ex05
             
             if (CheckIfWin())
             {
-                GameView.ShowWonScreen(m_board, m_players[m_currentPlayerIndex].r_name);
-                Console.ReadLine();
                 ShowGameWinScreen();
             }
             else if (m_board.IsFull)
@@ -108,7 +106,7 @@ namespace B16_Ex05
                 if (!m_players[m_currentPlayerIndex].IsHuman)
                 {
                     int selectedColumn = ComputerColumnSelection();
-                    PlayerMove(selectedColumn);
+                    TakeTurn(selectedColumn);
                 }
             }
         }
