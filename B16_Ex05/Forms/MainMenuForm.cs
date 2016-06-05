@@ -4,7 +4,6 @@ using System.Windows.Forms;
 
 namespace B16_Ex05.Forms
 {
-
     public partial class MainMenuForm : Form
     {
         private readonly int r_minSizeVal;
@@ -72,7 +71,7 @@ namespace B16_Ex05.Forms
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void CheckboxPlayer2Human_CheckedChanged(object sender, System.EventArgs e)
+        private void CheckboxPlayer2Human_CheckedChanged(object sender, System.EventArgs e)
         {
             TextboxPlayer2Name.Enabled = CheckboxPlayer2Human.Checked;
             if (!CheckboxPlayer2Human.Checked)

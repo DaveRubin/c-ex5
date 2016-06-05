@@ -17,7 +17,6 @@ namespace B16_Ex05
         private BoardViewForm m_BoardViewForm;
         private List<Player> m_players;
         private int m_currentPlayerIndex;
-        private eGameMode m_gameMode;
 
         public FourInARowGame()
         {

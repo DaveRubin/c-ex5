@@ -10,10 +10,6 @@ namespace B16_Ex05.Forms
 
     internal class BoardViewForm : Form
     {
-        internal Label Player1Label = new Label();
-        internal Label Player2Label = new Label();
-        internal Label Player1Score = new Label();
-        internal Label Player2Score = new Label();
         internal const string k_WindowTitle = "4 IN A ROW!";
         internal const int k_ColumnSelectButtonWidth = 50;
         internal const int k_ColumnSelectButtonHeight = 40;
@@ -22,14 +18,18 @@ namespace B16_Ex05.Forms
         internal const char k_P1Symbol = 'O';
         internal const char k_P2Symbol = 'X';
         internal const char k_EmptySymbol = ' ';
+        internal Label Player1Label = new Label();
+        internal Label Player2Label = new Label();
+        internal Label Player1Score = new Label();
+        internal Label Player2Score = new Label();
         internal int m_NumOfColumns;
         internal int m_NumOfRows;
         internal Button[,] m_ButtonMatrix;
         internal Button[] m_ColumnSelectionButtonsArray;
-        
-        public delegate void ColumnSelectEventHandler (int col);
-        public event ColumnSelectEventHandler OnColumnSelectPressed;
 
+        public delegate void ColumnSelectEventHandler(int col);
+
+        public event ColumnSelectEventHandler OnColumnSelectPressed;
 
         /// <summary>
         /// Board View Form ctor
@@ -64,7 +64,7 @@ namespace B16_Ex05.Forms
                     Width = k_ColumnSelectButtonWidth,
                     Height = k_ColumnSelectButtonHeight,
                     Location = new Point(
-                        i * k_ColumnSelectButtonWidth + (i + 2) * k_Padding,
+                        (i * k_ColumnSelectButtonWidth) + ((i + 2) * k_Padding),
                         k_Padding),
                     Text = (i + 1).ToString()
                 };
@@ -73,6 +73,7 @@ namespace B16_Ex05.Forms
             }
 
             int tagNum = 1;
+
             // bulid board button array
             for (int row = 0; row < m_NumOfRows; row++)
             {
@@ -83,14 +84,15 @@ namespace B16_Ex05.Forms
                         Width = k_GameButtonDimension,
                         Height = k_GameButtonDimension,
                         Location = new Point(
-                            row * k_GameButtonDimension + (row + 2) * k_Padding,
-                            m_ColumnSelectionButtonsArray[col].Bottom + col * k_GameButtonDimension + (col + 1) * k_Padding),
+                            (row * k_GameButtonDimension) + ((row + 2) * k_Padding),
+                            m_ColumnSelectionButtonsArray[col].Bottom + (col * k_GameButtonDimension) + ((col + 1) * k_Padding)),
                         Text = k_EmptySymbol.ToString()
                     };
                     m_ButtonMatrix[row, col].Tag = tagNum++;
                     Controls.Add(m_ButtonMatrix[row, col]);
                 }
             }
+
             // adding the name labels
             Player1Label.AutoSize = true;
             Player2Label.AutoSize = true;
@@ -100,16 +102,14 @@ namespace B16_Ex05.Forms
             Player2Label.Text = i_Player2Name + ": ";
             Player1Score.Text = " 0";
             Player2Score.Text = " 0";
-            //Player1Label.Top = ClientSize.Height - k_Padding - Player1Label.Height;
-            Player1Label.Anchor = (AnchorStyles.Bottom);
+            Player1Label.Anchor = AnchorStyles.Bottom;
             Player1Label.Left = m_ButtonMatrix[0, 0].Left;
-            Player1Score.Left = Player1Label.Right - 2 * k_Padding;
-            Player1Score.Anchor = (AnchorStyles.Bottom);
-            //Player2Label.Top = ClientSize.Height - k_Padding - Player2Label.Height;
-            Player2Label.Anchor = (AnchorStyles.Bottom);
+            Player1Score.Left = Player1Label.Right - (2 * k_Padding);
+            Player1Score.Anchor = AnchorStyles.Bottom;
+            Player2Label.Anchor = AnchorStyles.Bottom;
             Player2Label.Left = Player1Label.Right;
             Player2Score.Left = Player2Label.Right - k_Padding;
-            Player2Score.Anchor = (AnchorStyles.Bottom);
+            Player2Score.Anchor = AnchorStyles.Bottom;
             Controls.Add(Player1Label);
             Controls.Add(Player2Label);
             Controls.Add(Player1Score);
@@ -152,6 +152,7 @@ namespace B16_Ex05.Forms
             {
                 symbolToSet = k_P2Symbol;
             }
+
             m_ButtonMatrix[col, row].Text = symbolToSet.ToString();
         }
 
@@ -174,6 +175,7 @@ namespace B16_Ex05.Forms
                     {
                         symbolToSet = k_P2Symbol;
                     }
+
                     m_ButtonMatrix[col, row].Text = symbolToSet.ToString();
                 }
             }
@@ -185,9 +187,9 @@ namespace B16_Ex05.Forms
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void ColumnSelection_Clicked(object sender, System.EventArgs e)
+        public void ColumnSelection_Clicked(object sender, System.EventArgs e)
         {
-            int columnSelected = Int16.Parse((sender as Button).Text);
+            int columnSelected = short.Parse((sender as Button).Text);
             OnColumnSelectPressed(--columnSelected);
         }
     }
