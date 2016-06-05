@@ -44,6 +44,7 @@ namespace B16_Ex05.Forms
             m_ColumnSelectionButtonsArray = new Button[m_NumOfColumns];
             Text = k_WindowTitle;
             CreateBoard(args.Player1Name, args.Player2Name);
+            MinimumSize = new Size(360, 700);
             AutoSize = true;
         }
 
@@ -100,14 +101,14 @@ namespace B16_Ex05.Forms
             Player1Score.Text = " 0";
             Player2Score.Text = " 0";
             //Player1Label.Top = ClientSize.Height - k_Padding - Player1Label.Height;
-            Player1Label.Anchor = (AnchorStyles.Bottom | AnchorStyles.Left);
+            Player1Label.Anchor = (AnchorStyles.Bottom);
             Player1Label.Left = m_ButtonMatrix[0, 0].Left;
-            Player1Score.Left = Player1Label.Right;
+            Player1Score.Left = Player1Label.Right - 2 * k_Padding;
             Player1Score.Anchor = (AnchorStyles.Bottom);
             //Player2Label.Top = ClientSize.Height - k_Padding - Player2Label.Height;
             Player2Label.Anchor = (AnchorStyles.Bottom);
-            Player2Label.Left = Player1Label.Right + 2 * k_Padding;
-            Player2Score.Left = Player2Label.Right;
+            Player2Label.Left = Player1Label.Right;
+            Player2Score.Left = Player2Label.Right - k_Padding;
             Player2Score.Anchor = (AnchorStyles.Bottom);
             Controls.Add(Player1Label);
             Controls.Add(Player2Label);
